@@ -1,0 +1,52 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Guild {
+  id               String     @id @map("_id")
+  prefix           String     @default("g!")
+  role             String?
+  webhookToggle    Boolean    @default(false)
+  webhookId        String?
+  webhookToken     String?
+  buttonORreaction String     @default("reaction")
+  reaction         String     @default("1210959350718398464")
+  messagesWin      String     @default("Congratulations, {winners}! You won **{prize}**!")
+  messagesNoWinner String     @default("Giveaway cancelled, no valid participations.")
+  titleStart       String     @default("<:give:1210959350718398464> **GIVEAWAY STARTED** <:give:1210959350718398464>")
+  titleEnd         String     @default("<:give:1210959350718398464> **GIVEAWAY ENDED** <:give:1210959350718398464>")
+  startMessage     String     @default("React with <:give:1210959350718398464> to participate!\nWill ended: {timestamp}\nHosted by: {hostedBy}")
+  startColor       String     @default("#b19361")
+  endMessage       String     @default("Winner(s): {winners}\nHosted by: {hostedBy}")
+  endColor         String     @default("#b8a88e")
+  thumbnail        String?
+  image            String?
+  separatorImage   String?
+  Giveaway         Giveaway[]
+}
+
+model Giveaway {
+  id        String   @id @map("_id") // msg id (key)
+  channelId String // channel id
+  winners   Int // args
+  host      String // args
+  prize     String
+  duration  Int // args
+  startsAt  Int
+  endsAt    Int
+  entries   String[]
+  isEnded   Boolean @default(false)
+  guild     Guild    @relation(fields: [guildId], references: [id])
+  guildId   String // channel id
+}
