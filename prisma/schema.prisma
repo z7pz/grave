@@ -48,5 +48,5 @@ model Giveaway {
   entries   String[]
   isEnded   Boolean @default(false)
   guild     Guild    @relation(fields: [guildId], references: [id])
-  guildId   String // channel id
+  guildId   String // guildId
 }

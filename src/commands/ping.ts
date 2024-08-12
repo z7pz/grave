@@ -2,11 +2,8 @@ import { ApplyOptions } from '@sapphire/decorators';
 import { Command } from '@sapphire/framework';
 import { ApplicationCommandType, Message } from 'discord.js';
 
-
-
-
 @ApplyOptions<Command.Options>({
-	description: 'ping pong',
+	description: 'ping pong'
 })
 export class UserCommand extends Command {
 	// Register Chat Input and Context Menu command

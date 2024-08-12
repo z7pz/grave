@@ -62,7 +62,6 @@ export class UserCommand extends Command {
 
 	// Context Menu command
 	public override async contextMenuRun(interaction: Command.ContextMenuCommandInteraction) {
-		console.log('test');
 		const modal = new ModalBuilder().setCustomId('myModal').setTitle('My Modal');
 
 		const favoriteColorInput = new TextInputBuilder()
@@ -92,6 +91,9 @@ export class UserCommand extends Command {
 	}
 
 	private async create(msg: Message | Command.ChatInputCommandInteraction | Command.ContextMenuCommandInteraction, args: GiveawayArgs) {
+		// TODO: check permissions
+		// TODO: validate args w/zod
+
 		msg.client.manager.create(msg, args);
 	}
 }

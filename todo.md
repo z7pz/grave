@@ -1,8 +1,5 @@
-giveaway: {
-	host
-	price
-	winnerCount
-	endsAt
-	startsAt
-	entries
-}
+- [ ] reply message after ends
+- [ ] todo: w/zod
+- [ ] check for permissions
+- [ ] pause
+- [ ] resume

@@ -3,8 +3,10 @@ import '@sapphire/plugin-api/register';
 
 import { LogLevel, SapphireClient } from '@sapphire/framework';
 import { GatewayIntentBits, OAuth2Scopes } from 'discord.js';
-import { GiveawayManager } from './lib/giveaway';
-import { PrismaClient } from '@prisma/client'
+import { Giveaway, GiveawayManager } from './lib/giveaway';
+import { PrismaClient } from '@prisma/client';
+import { GiveawayJob } from './lib/giveaway/giveawayJob';
+import { CronJob } from 'cron';
 
 const client = new SapphireClient({
 	defaultPrefix: '!',
@@ -45,6 +47,11 @@ const client = new SapphireClient({
 		}
 	}
 });
+const gen = () => {
+	var randLetter = String.fromCharCode(65 + Math.floor(Math.random() * 26));
+	var uniqid = randLetter + Date.now();
+	return uniqid;
+};
 const main = async () => {
 	client.prisma = new PrismaClient();
 	client.manager = new GiveawayManager(client);
